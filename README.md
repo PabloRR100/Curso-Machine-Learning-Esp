@@ -18,7 +18,7 @@ Curso de Machine Learning en Español donde se abordarán los algoritmos de ML m
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  4.1.1.3 - [Regresión Polinómica](https://github.com/PabloRR100/Curso-Machine-Learning-Esp-/blob/master/4%20-%20Aprendizaje%20Supervisado/4.1%20-%20Regresión/4.1.1.1%20RLS%20-%20Python.ipynb)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  4.1.2 - [SVR](https://github.com/PabloRR100/Curso-Machine-Learning-Esp/blob/master/4%20-%20Aprendizaje%20Supervisado/4.2%20-%20SVR/4.2%20SVR%20-%20Python.ipynb) (Support Vector Regressor)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  4.1.3 - [Árboles de Decisión](https://github.com/PabloRR100/Curso-Machine-Learning-Esp/blob/master/4%20-%20Aprendizaje%20Supervisado/4.3%20-%20Árboles%20de%20Decisión/4.3%20Árboles%20de%20Decisión%20-%20Python.ipynb)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  4.1.4 - Bosques Aleatorios  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  4.1.4 - [Bosques Aleatorios](https://github.com/PabloRR100/Curso-Machine-Learning-Esp/blob/master/4%20-%20Aprendizaje%20Supervisado/4.4%20-%20Bosques%20Aleatorios/4.4%20Bosques%20Aleatorios%20-%20Python.ipynb)  
 &nbsp;&nbsp;&nbsp;&nbsp;  4.2 - Clasificación  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  4.2.1 - Regresión Logística  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  4.2.2 - SVM (Support Vector Machines)  
