@@ -13,8 +13,8 @@ Curso de Machine Learning en Español donde se abordarán los algoritmos de ML m
 
 4 - Aprendizaje Supervisado  
 &nbsp;&nbsp;&nbsp;&nbsp;  4.1 - Regresión  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  4.1.1.1 - Regresión Lineal Simple  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  4.1.1.2 - Regresión Lineal Múltiple  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  4.1.1.1 - [Regresión Lineal Simple](https://github.com/PabloRR100/Curso-Machine-Learning-Esp-/blob/master/4%20-%20Aprendizaje%20Supervisado/4.1%20-%20Regresión/4.1.1.1.%20RLS%20-%20Python.ipynb)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  4.1.1.2 - [Regresión Lineal Múltiple](https://github.com/PabloRR100/Curso-Machine-Learning-Esp-/blob/master/4%20-%20Aprendizaje%20Supervisado/4.1%20-%20Regresión/4.1.1.2.%20RLM%20-%20Python.ipynb)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  4.1.1.3 - Regresión Polinómica  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  4.1.2 - SVR (Support Vector Regressor)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  4.1.3 - Árboles de Decisión  
