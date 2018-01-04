@@ -2,11 +2,15 @@
 
 Curso de Machine Learning en Español donde se abordarán los algoritmos de ML más utilizados teóricamente, y se llevarán a la práctica en Python y R
 
-El contenido del curso es:
+Índice de contenidos
+---
 
 1 - Introdución -> Qué es Machine Learning  
+
 2 - Algoritmos de Machine Learning  
+
 3 - Preprocesado de los datos  
+
 4 - Aprendizaje Supervisado  
 &nbsp;&nbsp;&nbsp;&nbsp;  4.1 - Regresión  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  4.1.1.1 - Regresión Lineal Simple  
@@ -21,6 +25,7 @@ El contenido del curso es:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  4.2.3 - Análisis discriminante  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  4.2.4 - Clasificadores Bayesianos  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  4.2.3 - Vecino más cercano (Nearest Neighbour - NN)  
+
 5 - Aprendizaje no supervisado  
 &nbsp;&nbsp;&nbsp;&nbsp;  4.3 - Clustering (aglomeración)  
 &nbsp;&nbsp;&nbsp;&nbsp;  4.4 - Aprendizaje por refuerzo (Reinforcement Learning)  
