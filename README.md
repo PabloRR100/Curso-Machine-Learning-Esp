@@ -27,6 +27,6 @@ Curso de Machine Learning en Español donde se abordarán los algoritmos de ML m
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  4.2.3 - Vecino más cercano (Nearest Neighbour - NN)  
 
 5 - Aprendizaje no supervisado  
-&nbsp;&nbsp;&nbsp;&nbsp;  4.3 - Clustering (aglomeración)  
-&nbsp;&nbsp;&nbsp;&nbsp;  4.4 - Aprendizaje por refuerzo (Reinforcement Learning)  
+&nbsp;&nbsp;&nbsp;&nbsp;  5.1 - Clustering (aglomeración)  
+&nbsp;&nbsp;&nbsp;&nbsp;  5.2 - Aprendizaje por refuerzo (Reinforcement Learning)  
   
