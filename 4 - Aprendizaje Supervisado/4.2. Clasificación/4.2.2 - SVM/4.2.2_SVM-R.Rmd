@@ -1,5 +1,5 @@
 ---
-title: "Regresión Logística (R)"
+title: "SVM (Support Vector Machines) (R)"
 output: pdf_document
 ---
 
