@@ -1,13 +1,13 @@
 ---
-title: "Naive Bayes - Clasificadores Bayesianos (R)"
+title: "Árboles de Decisión (R)"
 output: pdf_document
 ---
 
+<img src='../Imagenes/logistic.png' style='width:30%;height:30%;float:left;margin-right:20px'>
+La regresión logísitica es un modelo que puede predecir la probabilidad que tiene una variable binaria (que puede aceptar 2 valores) de pertenecer a una clase o a otra.  
 
-<img src='../Imagenes/naiveBayes.png' style='width:20%;height:20%;float:left;margin-right:20px'>
-Los *naive Bayes* asumen que la presencia de una variable particular en una clase **no** está relacionada con la presencia de ninguna otra variable.  
+Es por tanto un método utilizado para la clasificación categórica de variables, especialmente útil por su simplicidad e interpretabilidad
 
-Clasifican a la nueva información basandonse en la probabilidad de pertenecer a cada una de ellas
 
 Escenario del problema
 ---
@@ -21,7 +21,6 @@ Ahora queremos construir un modelo que nos permita determinar con estos atributo
 # 1. Importar librerías
 library(caTools)
 library(ggplot2)
-library(e1071)         # Nos va a permitir general el modelo de Bayes 
 library(ElemStatLearn) # Nos va a permitir dibujar las clasificaciones
 ```
 
@@ -29,10 +28,6 @@ library(ElemStatLearn) # Nos va a permitir dibujar las clasificaciones
 # 2. Importar datos
 datos <- read.csv('../Datos/4.2.Compras.csv')
 datos <- datos[3:5] # Eliminamos la columna del sexo
-# 2.1. Codificiar la respuesta como categórica (factores en R)
-datos$Compra <- factor(datos$Compra,
-                levels = c(0, 1),
-                labels = c(0, 1))
 head(datos, 5)
 ```
 Compra puede ser 0 (compró) o 1 (no compró) --> Distribución binomial (Bernouilli)
@@ -54,19 +49,23 @@ test[-3]  <- scale(test[-3])
 
 
 ```{r 5. Construir el Modelo}
-# 5. Construir el Modelo y Predecir (kNN lo hace todo junto)
-bayesiano <- e1071::naiveBayes(x = train[-3],
-                               y = train$Compra)
+# 5. Construir el Modelo
+clasificador <- glm(formula = Compra ~ ., 
+                    family = binomial,
+                    data = train)
 ```
 
-```{r 6. Hacer las prediciones}
-# 6. Construir el Modelo y Predecir (kNN lo hace todo junto)
-y_pred <- predict(bayesiano, newdata = test)
+```{r 6. Hacer las prediciones para el conjunto de Validación}
+# 6. Hacer las prediciones para el conjunto de Validación
+# 6.1. Calculamos las probabilidades
+prob_pred = predict(clasificador, type = 'response', newdata = test[-3])
+# 6.2. Las hacemos pasar por la función sigmoid
+y_pred = ifelse(prob_pred > 0.5, 1, 0)
 ```
 
 ```{r 7. Evaluar la calidad de las predicciones}
 # 7. Hacer la matriz de confusión
-cm = table(test[ , 3], y_pred)
+cm = table(test[, 3], y_pred > 0.5)
 cm
 ```
 
@@ -80,9 +79,10 @@ X2 = seq(min(set[, 2]) - 1, max(set[, 2]) + 1, by = 0.01)
 grid_set = expand.grid(X1, X2)
 colnames(grid_set) = c('Edad', 'Salario')
 
-y_grid = predict(bayesiano, newdata = grid_set)
+prob_set = predict(clasificador, type = 'response', newdata = grid_set)
+y_grid = ifelse(prob_set > 0.5, 1, 0)
 plot(set[, -3],
-     main = 'Bayesiano (Conjunto de entrenamiento)',
+     main = 'Regresión Logística (Conjunto de entrenamiento)',
      xlab = 'Edad', ylab = 'Salario',
      xlim = range(X1), ylim = range(X2))
 contour(X1, X2, matrix(as.numeric(y_grid), length(X1), length(X2)), add = TRUE)
@@ -96,9 +96,10 @@ X2 = seq(min(set[, 2]) - 1, max(set[, 2]) + 1, by = 0.01)
 grid_set = expand.grid(X1, X2)
 colnames(grid_set) = c('Edad', 'Salario')
 
-y_grid = predict(bayesiano, newdata = grid_set)
+prob_set = predict(clasificador, type = 'response', newdata = grid_set)
+y_grid = ifelse(prob_set > 0.5, 1, 0)
 plot(set[, -3],
-     main = 'Bayesiano (Conjunto de entrenamiento)',
+     main = 'Regresión Logística (Conjunto de entrenamiento)',
      xlab = 'Edad', ylab = 'Salario',
      xlim = range(X1), ylim = range(X2))
 contour(X1, X2, matrix(as.numeric(y_grid), length(X1), length(X2)), add = TRUE)
