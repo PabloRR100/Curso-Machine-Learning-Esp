@@ -63,7 +63,7 @@ ggplot() +
 
 ¡Trampa! Nuestro árbol ha hecho 1 sola división y ha cogido el valor medio. Tenemos que forzar al árbol ha hacer un mínimo de divisiones. Volvamos a configurarlo
 
-```{r # 7. Reonstruir el Modelo}
+```{r 7. Reconstruir el Modelo}
 # 4. Construir el Modelo
 arbol2 <- rpart::rpart(formula = Salario ~ Nivel,
                        data = datos,
@@ -110,7 +110,7 @@ print(RMSE)
 ```
 
 
-```{r 7. Pintar el Árbol}
+```{r 8. Pintar el Árbol}
 # 8. Pintar el árbol resultante
 plot(arbol2)
 text(arbol2)
