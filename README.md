@@ -24,7 +24,7 @@ Curso de Machine Learning en Español donde se abordarán los algoritmos de ML m
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  4.2.2 - [SVM](https://github.com/PabloRR100/Curso-Machine-Learning-Esp/blob/master/4%20-%20Aprendizaje%20Supervisado/4.2.%20Clasificación/4.2.2%20-%20SVM/4.2.2%20SVM%20-%20Python.ipynb)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  4.2.3 - Análisis discriminante  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  4.2.4 - Clasificadores Bayesianos  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  4.2.3 - [kNN](https://github.com/PabloRR100/Curso-Machine-Learning-Esp/tree/master/4%20-%20Aprendizaje%20Supervisado/4.2.%20Clasificación/4.2.4%20-%20k-Nearest%20Neighbor)  (Vecino más cercano) 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  4.2.3 - [kNN](https://github.com/PabloRR100/Curso-Machine-Learning-Esp/blob/master/4%20-%20Aprendizaje%20Supervisado/4.2.%20Clasificación/4.2.4%20-%20k-Nearest%20Neighbor/4.2.4%20-%20k-Nearest%20Neighbor%20-%20Python.ipynb)  (Vecino más cercano) 
 
 5 - Aprendizaje no supervisado  
 &nbsp;&nbsp;&nbsp;&nbsp;  5.1 - Clustering (aglomeración)  
