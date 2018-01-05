@@ -21,10 +21,10 @@ Curso de Machine Learning en Español donde se abordarán los algoritmos de ML m
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  4.1.4 - [Bosques Aleatorios](https://github.com/PabloRR100/Curso-Machine-Learning-Esp/blob/master/4%20-%20Aprendizaje%20Supervisado/4.1.%20Regresión/4.1.4%20-%20Bosques%20Aleatorios/4.4%20Bosques%20Aleatorios%20-%20Python.ipynb)  
 &nbsp;&nbsp;&nbsp;&nbsp;  4.2 - Clasificación  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  4.2.1 - [Regresión Logística](https://github.com/PabloRR100/Curso-Machine-Learning-Esp/blob/master/4%20-%20Aprendizaje%20Supervisado/4.2.%20Clasificación/4.2.1%20-%20Regresión%20Log%C3%ADsitca/4.2.1%20Regresión%20Log%C3%ADstica%20-%20Python.ipynb)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  4.2.2 - [SVM](https://github.com/PabloRR100/Curso-Machine-Learning-Esp/blob/master/4%20-%20Aprendizaje%20Supervisado/4.2.%20Clasificación/4.2.2%20-%20SVM/4.2.3%20SVM%20-%20Python.ipynb) (Support Vector Machines)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  4.2.2 - [SVM](https://github.com/PabloRR100/Curso-Machine-Learning-Esp/blob/master/4%20-%20Aprendizaje%20Supervisado/4.2.%20Clasificación/4.2.2%20-%20SVM/4.2.2%20SVM%20-%20Python.ipynb)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  4.2.3 - Análisis discriminante  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  4.2.4 - Clasificadores Bayesianos  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  4.2.3 - Vecino más cercano (Nearest Neighbour - NN)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  4.2.3 - [kNN](https://github.com/PabloRR100/Curso-Machine-Learning-Esp/tree/master/4%20-%20Aprendizaje%20Supervisado/4.2.%20Clasificación/4.2.4%20-%20k-Nearest%20Neighbor)  (Vecino más cercano) 
 
 5 - Aprendizaje no supervisado  
 &nbsp;&nbsp;&nbsp;&nbsp;  5.1 - Clustering (aglomeración)  
