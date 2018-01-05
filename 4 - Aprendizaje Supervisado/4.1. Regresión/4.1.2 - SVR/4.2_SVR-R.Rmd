@@ -1,0 +1,69 @@
+---
+title: "SVR - Support Vector Machine para Regresión"
+output: pdf_document
+---
+
+SVR (R)
+---
+<img src='../Imagenes/SVR.png' style='width:12%;height:12%;float:left;margin-right:20px'>
+Los SVR utilizan una función (denominada función de Núcleo o ___kernel___) para mapear los puntos del conjunto de datos disponibles a otra dimensión donde estos sean linealmente separables. 
+
+Si imaginamos un espacion en 2D con puntos de 2 clases distintas, la función de núcleo podría levantar a estos puntos a un espacio en 3D donde estos puntos de distintas clases podrían separarse por un plano.
+
+Escenario del problema
+---
+
+<img src='../Imagenes/entrevista.png' style='width:8%;height:8%;float:left;margin-right:20px'>
+Vamos a contratar un nuevo empleado. Nos ha dicho que en su anterior empresa fue Manager Regional durante 2 años y que cobraba 170.000€ al año. Queremos determinar hasta que punto nos dice la verdad para poder negociar con él el salario que queremos ofrecerle en su nuevo puesto.  
+¡Vamos a ello!
+
+```{r 1. Importar librerías}
+# 1. Importar librerías
+library(caTools)
+library(ggplot2)
+library(e1071)
+```
+
+```{r 2. Importar datos}
+# 2. Importar datos
+datos <- read.csv('../Datos/4.1.Salarios2.csv')
+datas = datos[2:3] # Eliminamos la columna del título del puesto y nos quedamos con el nivel
+```
+
+
+```{r # 3. Separar en Entrenamiento y Validación}
+# 3. Separar en Entrenamiento y Validación
+```
+**Recordatorio:** no hacemos división de conjuntos porque tenemos muy pocos datos y nuestra intención es hacer una predicción lo más precisa posible.
+
+```{r # 4. Construir el Modelo}
+# 4. Construir el Modelo
+regresor <- e1071::svm(formula = Salario ~ Nivel,
+                       data = datos,
+                       type = 'eps-regression')
+
+```
+
+```{r 5. Hacer las prediciones para el conjunto de Validación}
+# 5. Hacer las prediciones para el conjunto de Validación
+y_fit <- predict(regresor, newdata = datos)
+```
+No estamos prediciendo en este ejemplo, sino determinando los parámetros para que el modelo se **ajuste** lo mejor posible a los datos del conjunto de entrenamiento (que constitutye todos los datos)
+
+```{r 6. Echemos un vistazo a la pinta que tienen las predicciones}
+# 6. Echemos un vistazo a la pinta que tienen las predicciones
+ggplot() +
+  geom_point(aes(datos$Nivel, datos$Salario), colour='red') +
+  geom_line(aes(datos$Nivel, y_fit), colour='blue') +
+  ggtitle('SVR') +
+  xlab('Años de experiencia') +
+  ylab('Salario')
+```
+
+```{r 7. Calcular el error}
+# 7. Calcular el error
+library(Metrics)
+y_real <- datos$Salario
+RMSE <- rmse(y_real, y_fit)
+print(RMSE)
+```
