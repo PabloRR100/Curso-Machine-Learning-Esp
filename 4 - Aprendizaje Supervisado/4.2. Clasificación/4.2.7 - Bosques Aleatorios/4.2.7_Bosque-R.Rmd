@@ -1,12 +1,10 @@
 ---
-title: "Árboles de Decisión (R)"
+title: "Bosques Aleatorios (R)"
 output: pdf_document
 ---
 
-<img src='../Imagenes/arbol.png' style='width:20%;height:20%;float:left;margin-right:20px'>
-Los árboles de decisión para la clasificación funcionan igual que los vistos para regresión.
-
-La única diferencia es que el contenido de los nodos hojas son categorías en lugar de valores discretos
+<img src='../Imagenes/RandomForest.png' style='width:20%;height:20%;float:left;margin-right:20px'>
+Al igual que en clasificación, los bosques aleatorios consiten en *n* árboles de decisión que promedian sus decisiones para 1 entrada, ofreciendo finalmente una única categoría como respuesta
 
 
 Escenario del problema
@@ -21,7 +19,7 @@ Ahora queremos construir un modelo que nos permita determinar con estos atributo
 # 1. Importar librerías
 library(caTools)
 library(ggplot2)
-library(rpart)         # Nos va a pertmit crear el arbol
+library(randomForest)  # Nos va a pertmit crear el bosque
 library(ElemStatLearn) # Nos va a permitir dibujar las clasificaciones
 ```
 
@@ -54,14 +52,14 @@ test[-3]  <- scale(test[-3])
 
 ```{r 5. Construir el Modelo}
 # 5. Construir el Modelo
-arbol <- rpart::rpart(formula = Compra ~ .,
-                      data = train,
-                      control = rpart.control(minsplit=1))
+bosque <- randomForest::randomForest(formula = Compra ~ .,
+                                     data = train,
+                                     ntree = 50)
 ```
 
 ```{r 6. Hacer las prediciones para el conjunto de Validación}
 # 6. Hacer las prediciones para el conjunto de Validación
-y_pred <- predict(arbol, newdata = test[-3], type = 'class')
+y_pred <- predict(bosque, newdata = test[-3], type = 'class')
 ```
 
 ```{r 7. Evaluar la calidad de las predicciones}
@@ -80,9 +78,9 @@ X2 = seq(min(set[, 2]) - 1, max(set[, 2]) + 1, by = 0.01)
 grid_set = expand.grid(X1, X2)
 colnames(grid_set) = c('Edad', 'Salario')
 
-y_grid <- predict(arbol, newdata = grid_set, type = 'class')
+y_grid <- predict(bosque, newdata = grid_set)
 plot(set[, -3],
-     main = 'Árbol de Decision (Conjunto de entrenamiento)',
+     main = 'Bosque Aleatorio (Conjunto de entrenamiento)',
      xlab = 'Edad', ylab = 'Salario',
      xlim = range(X1), ylim = range(X2))
 contour(X1, X2, matrix(as.numeric(y_grid), length(X1), length(X2)), add = TRUE)
@@ -96,9 +94,9 @@ X2 = seq(min(set[, 2]) - 1, max(set[, 2]) + 1, by = 0.01)
 grid_set = expand.grid(X1, X2)
 colnames(grid_set) = c('Edad', 'Salario')
 
-y_grid <- predict(arbol, newdata = grid_set, type = 'class')
+y_grid <- predict(bosque, newdata = grid_set)
 plot(set[, -3],
-     main = 'Árbol de Decision (Conjunto de entrenamiento)',
+     main = 'Bosque Aleatorio (Conjunto de entrenamiento)',
      xlab = 'Edad', ylab = 'Salario',
      xlim = range(X1), ylim = range(X2))
 contour(X1, X2, matrix(as.numeric(y_grid), length(X1), length(X2)), add = TRUE)
