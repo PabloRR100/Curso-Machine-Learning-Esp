@@ -8,7 +8,7 @@ La regresión linear utiliza el método de mínimos cuadrados para encontrar la 
 La palabra simple se refiere a que la variable respuesta solo depende de 1 variable independiente: Y = f(X)
 
 
-## Escenario del problema
+Escenario del problema
 ---
 
 <img src='../Imagenes/experiencia.png' style='width:12%;height:12%;float:left;margin-right:20px'>
@@ -71,4 +71,5 @@ ggplot() +
 # 7. Calcular el error
 library(Metrics)
 RMSE <- rmse(test$Salario, y_pred)
+print(RMSE)
 ```
