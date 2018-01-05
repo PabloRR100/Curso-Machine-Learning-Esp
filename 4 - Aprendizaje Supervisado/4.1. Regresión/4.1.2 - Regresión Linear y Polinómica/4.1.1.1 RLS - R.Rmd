@@ -15,18 +15,18 @@ La palabra simple se refiere a que la variable respuesta solo depende de 1 varia
 Queremos encontrar la relación que existe entre los años de experiencia profesional y el salario que podemos esperar tener cuando lo hayamos conseguido.  
 ¡Vamos a ello!
 
-```{r}
+```{r 1. Importar librerías}
 # 1. Importar librerías
 library(caTools)
 library(ggplot2)
 ```
 
-```{r}
+```{r 2. Importar datos}
 # 2. Importar datos
 datos <- read.csv('../Datos/4.1.Salarios.csv')
 ```
 
-```{r}
+```{r # 3. Separar en Entrenamiento y Validación}
 # 3. Separar en Entrenamiento y Validación
 set.seed(123)
 split <- sample.split(datos$Salario, SplitRatio = 0.7)
@@ -36,19 +36,19 @@ train <- entrenamiento
 test  <- validacion
 ```
 
-```{r}
+```{r # 4. Construir el Modelo}
 # 4. Construir el Modelo
 regresor <- lm(formula = Salario ~ Experiencia,
                data = train) 
 ```
 
-```{r}
+```{r 5. Hacer las prediciones para el conjunto de Validación}
 # 5. Hacer las prediciones para el conjunto de Validación
 y_fit  <- predict(regresor, newdata = train)
 y_pred <- predict(regresor, newdata = test) 
 ```
 
-```{r}
+```{r 6. Echemos un vistazo a la pinta que tienen las predicciones}
 # 6. Echemos un vistazo a la pinta que tienen las predicciones
 # 6.1. Para el conjunto de entrenamiento
 ggplot() +
@@ -67,7 +67,7 @@ ggplot() +
   ylab('Salario')
 ```
 
-```{r}
+```{r 7. Calcular el error}
 # 7. Calcular el error
 library(Metrics)
 RMSE <- rmse(test$Salario, y_pred)
