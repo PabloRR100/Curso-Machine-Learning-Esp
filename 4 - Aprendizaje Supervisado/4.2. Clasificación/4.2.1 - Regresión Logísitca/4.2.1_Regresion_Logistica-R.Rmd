@@ -21,99 +21,88 @@ Ahora queremos construir un modelo que nos permita determinar con estos atributo
 # 1. Importar librerías
 library(caTools)
 library(ggplot2)
-library(rpart)    # Librería que usaremos para crer el Árbol
+library(ElemStatLearn) # Nos va a permitir dibujar las clasificaciones
 ```
 
 ```{r 2. Importar datos}
 # 2. Importar datos
-datos <- read.csv('../Datos/4.1.Salarios2.csv')
-datos <- datos[2:3] # Eliminamos la columna del título del puesto y nos quedamos con el nivel
-head(datos, 10)
+datos <- read.csv('../Datos/4.2.Compras.csv')
+datos <- datos[3:5] # Eliminamos la columna del sexo
+head(datos, 5)
 ```
-Vemos como NO existe una tendencia lineal
+Compra puede ser 0 (compró) o 1 (no compró) --> Distribución binomial (Bernouilli)
 
 ```{r # 3. Separar en Entrenamiento y Validación}
 # 3. Separar en Entrenamiento y Validación
-```
-**Recordatorio:** no hacemos división de conjuntos porque tenemos muy pocos datos y nuestra intención es hacer una predicción lo más precisa posible.
-
-```{r # 4. Construir el Modelo}
-# 4. Construir el Modelo
-arbol <- rpart::rpart(formula = Salario ~ Nivel,
-                                data = datos)
+set.seed(123)
+split <- sample.split(datos$Compra, SplitRatio = 0.75)
+train <- subset(datos, split==TRUE)
+test  <- subset(datos, split==FALSE)
+dim(train)/dim(test)
 ```
 
-```{r 5. Hacer las prediciones para el conjunto de Validación}
-# 5. Hacer las prediciones para el conjunto de Validación
-y_fit  <- predict(arbol, newdata = datos)
-y_pred <- predict(arbol, data.frame(Nivel = 6.5))
-```
-No estamos prediciendo en este ejemplo, sino determinando los parámetros para que el modelo se **ajuste** lo mejor posible a los datos del conjunto de entrenamiento (que constitutye todos los datos)
-
-```{r 6. Echemos un vistazo a la pinta que tienen las predicciones}
-# 6. Echemos un vistazo a la pinta que tienen las predicciones
-ggplot() +
-  geom_point(aes(datos$Nivel, datos$Salario), colour='red') +
-  geom_line(aes(datos$Nivel, y_fit), colour='blue') +
-  ggtitle('Regresión por Árbol de Decisión') +
-  xlab('Años de experiencia') +
-  ylab('Salario')
-```
-
-¡Trampa! Nuestro árbol ha hecho 1 sola división y ha cogido el valor medio. Tenemos que forzar al árbol ha hacer un mínimo de divisiones. Volvamos a configurarlo
-
-```{r 7. Reconstruir el Modelo}
-# 4. Construir el Modelo
-arbol2 <- rpart::rpart(formula = Salario ~ Nivel,
-                       data = datos,
-                       control = rpart.control(minsplit = 1))
- 
-# 5. Hacer las prediciones para el conjunto de Validación
-y_fit2  <- predict(arbol2, newdata = datos)
-y_pred2 <- predict(arbol2, data.frame(Nivel = 6.5))
-
-# 6. Echemos un vistazo a la pinta que tienen las predicciones
-ggplot() +
-  geom_point(aes(datos$Nivel, datos$Salario), colour='red') +
-  geom_line(aes(datos$Nivel, y_fit2), colour='blue') +
-  ggtitle('Regresión por Árbol de Decisión') +
-  xlab('Años de experiencia') +
-  ylab('Salario')
-```
-
-El modelo de árboles de decisión es un modelo de regresión **discontínuo**.
-Para poder verlo, necesitamos hacer un aumento de resolución.
-
-```{r}
-# 5. Hacer las prediciones para el conjunto de Validación
-x_grid =  seq(min(datos$Nivel), max(datos$Nivel), 0.01)
-y_fit3 <- predict(arbol2, newdata = data.frame(Nivel = x_grid))
-#y_fit3 <- predict(arbol2, newdata = data.frame(Nivel = x_grid))
-
-# 6. Echemos un vistazo a la pinta que tienen las predicciones
-ggplot() +
-  geom_point(aes(datos$Nivel, datos$Salario), colour='red') +
-  geom_line(aes(x_grid, y_fit3), colour='blue') +
-  ggtitle('Regresión por Árbol de Decisión') +
-  xlab('Años de experiencia') +
-  ylab('Salario')
-```
-Esto es lo que realmente está haciendo el árbol de decisión
-
-```{r 7. Calcular el error}
-# 7. Calcular el error
-library(Metrics)
-y_real <- datos$Salario
-RMSE <- rmse(y_real, y_fit2)
-print(RMSE)
+```{r 4. Escalar los datos}
+# 4. Hacer las prediciones para el conjunto de Validación
+train[-3] <- scale(train[-3])
+test[-3]  <- scale(test[-3])
 ```
 
 
-```{r 8. Pintar el Árbol}
-# 8. Pintar el árbol resultante
-plot(arbol2)
-text(arbol2)
+```{r 5. Construir el Modelo}
+# 5. Construir el Modelo
+clasificador <- glm(formula = Compra ~ ., 
+                    family = binomial,
+                    data = train)
+```
+
+```{r 6. Hacer las prediciones para el conjunto de Validación}
+# 6. Hacer las prediciones para el conjunto de Validación
+# 6.1. Calculamos las probabilidades
+prob_pred = predict(clasificador, type = 'response', newdata = test[-3])
+# 6.2. Las hacemos pasar por la función sigmoid
+y_pred = ifelse(prob_pred > 0.5, 1, 0)
+```
+
+```{r 7. Evaluar la calidad de las predicciones}
+# 7. Hacer la matriz de confusión
+cm = table(test[, 3], y_pred > 0.5)
+cm
 ```
 
 
+```{r 8. Echemos un vistazo a la pinta que tienen las predicciones}
+# 8. Echemos un vistazo a la pinta que tienen las predicciones
+# 8.1. Conjunto de entrenamiento
+set = train
+X1 = seq(min(set[, 1]) - 1, max(set[, 1]) + 1, by = 0.01)
+X2 = seq(min(set[, 2]) - 1, max(set[, 2]) + 1, by = 0.01)
+grid_set = expand.grid(X1, X2)
+colnames(grid_set) = c('Edad', 'Salario')
 
+prob_set = predict(clasificador, type = 'response', newdata = grid_set)
+y_grid = ifelse(prob_set > 0.5, 1, 0)
+plot(set[, -3],
+     main = 'Regresión Logística (Conjunto de entrenamiento)',
+     xlab = 'Edad', ylab = 'Salario',
+     xlim = range(X1), ylim = range(X2))
+contour(X1, X2, matrix(as.numeric(y_grid), length(X1), length(X2)), add = TRUE)
+points(grid_set, pch = '.', col = ifelse(y_grid == 1, 'springgreen3', 'tomato'))
+points(set, pch = 21, bg = ifelse(set[, 3] == 1, 'green4', 'red3'))
+
+# 8.2. Conjunto de validación
+set = test
+X1 = seq(min(set[, 1]) - 1, max(set[, 1]) + 1, by = 0.01)
+X2 = seq(min(set[, 2]) - 1, max(set[, 2]) + 1, by = 0.01)
+grid_set = expand.grid(X1, X2)
+colnames(grid_set) = c('Edad', 'Salario')
+
+prob_set = predict(clasificador, type = 'response', newdata = grid_set)
+y_grid = ifelse(prob_set > 0.5, 1, 0)
+plot(set[, -3],
+     main = 'Regresión Logística (Conjunto de entrenamiento)',
+     xlab = 'Edad', ylab = 'Salario',
+     xlim = range(X1), ylim = range(X2))
+contour(X1, X2, matrix(as.numeric(y_grid), length(X1), length(X2)), add = TRUE)
+points(grid_set, pch = '.', col = ifelse(y_grid == 1, 'springgreen3', 'tomato'))
+points(set, pch = 21, bg = ifelse(set[, 3] == 1, 'green4', 'red3'))
+```
