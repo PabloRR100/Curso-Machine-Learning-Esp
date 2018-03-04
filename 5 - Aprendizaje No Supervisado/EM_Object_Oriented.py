@@ -91,7 +91,7 @@ def esperanza(punto, clusters):
     
     for i, cluster in enumerate(clusters):
         esperanza[i] = probabilidad_pertenencia(punto, cluster)
-        
+        gst
     return np.argmax(esperanza)
 
 
