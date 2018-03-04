@@ -29,6 +29,6 @@ Curso de Machine Learning en Español donde se abordarán los algoritmos de ML m
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  4.2.5 - [Bosques aleatorios]()  
 
 5 - Aprendizaje no supervisado  
-&nbsp;&nbsp;&nbsp;&nbsp;  5.1 - Clustering (aglomeración)  
+&nbsp;&nbsp;&nbsp;&nbsp;  5.1 - [Clustering](https://github.com/PabloRR100/Curso-Machine-Learning-Esp/blob/master/5%20-%20Aprendizaje%20No%20Supervisado/Intro%20Clustering.ipynb) (aglomeración)  
 &nbsp;&nbsp;&nbsp;&nbsp;  5.2 - Aprendizaje por refuerzo (Reinforcement Learning)  
   
