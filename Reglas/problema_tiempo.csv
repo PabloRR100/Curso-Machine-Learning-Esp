@@ -1,0 +1,15 @@
+﻿Id;Ambiente;Temperatura;Humedad;Viento;Jugar
+E1;soleado;alta;alta;falso;no
+E2;soleado;alta;alta;verdadero;no
+E3;nublado;alta;alta;falso;si
+E4;lluvioso;media;alta;falso;si
+E5;lluvioso;baja;normal;falso;si
+E6;lluvioso;baja;normal;verdadero;no
+E7;nublado;baja;normal;verdadero;si
+E8;soleado;media;alta;falso;no
+E9;soleado;baja;normal;falso;si
+E10;lluvioso;media;normal;falso;si
+E11;soleado;media;normal;verdadero;si
+E12;nublado;media;alta;verdadero;si
+E13;nublado;alta;normal;falso;si
+E14;lluvioso;media;alta;verdadero;no
