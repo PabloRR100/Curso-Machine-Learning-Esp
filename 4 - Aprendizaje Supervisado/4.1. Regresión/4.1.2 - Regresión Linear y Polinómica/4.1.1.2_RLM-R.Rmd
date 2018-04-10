@@ -1,11 +1,11 @@
 ---
 title: "Regresión Lineal Múltiple"
-output: pdf_document
+output: html_document
 ---
 
 #Regresión Linear Múltiple (R)
 La regresión linear utiliza el método de mínimos cuadrados para encontrar la recta que resulta en la menor suma de errores al cuadrado (RMSE: Root Mean Square Error).
-La palabra múltiple se refiere a que la variable respuesta dependerá de más de 1 variable independiente: Y = f(X1,...,Xn)
+La palabra múltiple se refiere a que la variable respuesta dependerÃ¡ de mÃ¡s de 1 variable independiente: Y = f(X1,...,Xn)
 
 
 Escenario del problema
@@ -15,6 +15,8 @@ Escenario del problema
 Queremos encontrar la relación que existe entre un conjunto de variables y el salario que podemos esperar tener cuando lo hayamos conseguido.
 ¡Vamos a ello!
 
+<br>
+<br>
 ```{r 1. Importar librerías}
 # 1. Importar librerías
 library(caTools)
@@ -33,6 +35,18 @@ datos$Pais <- factor(datos$Pais,
                      labels = c(1, 2, 3))
 datos
 ```
+```{r 4. Histograma ed Beneficion}
+ggplot(data = datos, aes(datos$Beneficio)) + 
+  geom_histogram(bins = 25,
+                 col = 'black',
+                 fill = 'blue', 
+                 alpha = 0.2) + 
+  xlab('Beneficio (€)') + 
+  ylab('Frecuencia') + 
+  geom_vline(xintercept = mean(datos$Beneficio), col='brown')
+
+```
+
 
 ```{r # 3. Separar en Entrenamiento y Validación}
 # 3. Separar en Entrenamiento y Validación
@@ -62,5 +76,9 @@ y_pred <- predict(regresor, newdata = test)
 library(Metrics)
 y_real <- test$Beneficio
 RMSE <- rmse(y_real, y_pred)
-print(RMSE)
+avg <- mean(datos$Beneficio)
+err <- (RMSE * 100) / avg 
+cat('RMSE is ', RMSE, ' over an average of: ', avg, '; consisting on an error of: ', err, '%')
 ```
+
+

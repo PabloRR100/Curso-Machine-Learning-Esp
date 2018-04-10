@@ -1,0 +1,275 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={Regresión Lineal Múltiple},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+  \title{Regresión Lineal Múltiple}
+  \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+  \author{}
+  \preauthor{}\postauthor{}
+  \date{}
+  \predate{}\postdate{}
+
+
+\begin{document}
+\maketitle
+
+\section{Regresión Linear Múltiple
+(R)}\label{regresion-linear-multiple-r}
+
+La regresión linear utiliza el método de mínimos cuadrados para
+encontrar la recta que resulta en la menor suma de errores al cuadrado
+(RMSE: Root Mean Square Error). La palabra múltiple se refiere a que la
+variable respuesta dependerÃ¡ de mÃ¡s de 1 variable independiente: Y =
+f(X1,\ldots{},Xn)
+
+\subsection{Escenario del problema}\label{escenario-del-problema}
+
+ Queremos encontrar la relación que existe entre un conjunto de
+variables y el salario que podemos esperar tener cuando lo hayamos
+conseguido. Â¡Vamos a ello!
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 1. Importar librerías}
+\KeywordTok{library}\NormalTok{(caTools)}
+\KeywordTok{library}\NormalTok{(ggplot2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 2. Importar datos}
+\NormalTok{datos <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{'../Datos/4.1.Empresas.csv'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 3. Codificcar variables categóricas}
+\NormalTok{datos}\OperatorTok{$}\NormalTok{Pais <-}\StringTok{ }\KeywordTok{factor}\NormalTok{(datos}\OperatorTok{$}\NormalTok{Pais, }
+                     \DataTypeTok{levels =} \KeywordTok{c}\NormalTok{(}\StringTok{'Nueva York'}\NormalTok{, }\StringTok{'California'}\NormalTok{, }\StringTok{'Florida'}\NormalTok{),}
+                     \DataTypeTok{labels =} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{))}
+\NormalTok{datos}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Investigacion Administracion Marketing Pais Beneficio
+## 1      165349.20      136897.80 471784.10    1 192261.83
+## 2      162597.70      151377.59 443898.53    2 191792.06
+## 3      153441.51      101145.55 407934.54    3 191050.39
+## 4      144372.41      118671.85 383199.62    1 182901.99
+## 5      142107.34       91391.77 366168.42    3 166187.94
+## 6      131876.90       99814.71 362861.36    1 156991.12
+## 7      134615.46      147198.87 127716.82    2 156122.51
+## 8      130298.13      145530.06 323876.68    3 155752.60
+## 9      120542.52      148718.95 311613.29    1 152211.77
+## 10     123334.88      108679.17 304981.62    2 149759.96
+## 11     101913.08      110594.11 229160.95    3 146121.95
+## 12     100671.96       91790.61 249744.55    2 144259.40
+## 13      93863.75      127320.38 249839.44    3 141585.52
+## 14      91992.39      135495.07 252664.93    2 134307.35
+## 15     119943.24      156547.42 256512.92    3 132602.65
+## 16     114523.61      122616.84 261776.23    1 129917.04
+## 17      78013.11      121597.55 264346.06    2 126992.93
+## 18      94657.16      145077.58 282574.31    1 125370.37
+## 19      91749.16      114175.79 294919.57    3 124266.90
+## 20      86419.70      153514.11      0.00    1 122776.86
+## 21      76253.86      113867.30 298664.47    2 118474.03
+## 22      78389.47      153773.43 299737.29    1 111313.02
+## 23      73994.56      122782.75 303319.26    3 110352.25
+## 24      67532.53      105751.03 304768.73    3 108733.99
+## 25      77044.01       99281.34 140574.81    1 108552.04
+## 26      64664.71      139553.16 137962.62    2 107404.34
+## 27      75328.87      144135.98 134050.07    3 105733.54
+## 28      72107.60      127864.55 353183.81    1 105008.31
+## 29      66051.52      182645.56 118148.20    3 103282.38
+## 30      65605.48      153032.06 107138.38    1 101004.64
+## 31      61994.48      115641.28  91131.24    3  99937.59
+## 32      61136.38      152701.92  88218.23    1  97483.56
+## 33      63408.86      129219.61  46085.25    2  97427.84
+## 34      55493.95      103057.49 214634.81    3  96778.92
+## 35      46426.07      157693.92 210797.67    2  96712.80
+## 36      46014.02       85047.44 205517.64    1  96479.51
+## 37      28663.76      127056.21 201126.82    3  90708.19
+## 38      44069.95       51283.14 197029.42    2  89949.14
+## 39      20229.59       65947.93 185265.10    1  81229.06
+## 40      38558.51       82982.09 174999.30    2  81005.76
+## 41      28754.33      118546.05 172795.67    2  78239.91
+## 42      27892.92       84710.77 164470.71    3  77798.83
+## 43      23640.93       96189.63 148001.11    2  71498.49
+## 44      15505.73      127382.30  35534.17    1  69758.98
+## 45      22177.74      154806.14  28334.72    2  65200.33
+## 46       1000.23      124153.04   1903.93    1  64926.08
+## 47       1315.46      115816.21 297114.46    3  49490.75
+## 48          0.00      135426.92      0.00    2  42559.73
+## 49        542.05       51743.15      0.00    1  35673.41
+## 50          0.00      116983.80  45173.06    2  14681.40
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 3. Separar en Entrenamiento y Validación}
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\NormalTok{split <-}\StringTok{ }\KeywordTok{sample.split}\NormalTok{(datos}\OperatorTok{$}\NormalTok{Beneficio, }\DataTypeTok{SplitRatio =} \FloatTok{0.7}\NormalTok{)}
+\NormalTok{entrenamiento <-}\StringTok{ }\KeywordTok{subset}\NormalTok{(datos, split}\OperatorTok{==}\OtherTok{TRUE}\NormalTok{)}
+\NormalTok{validacion    <-}\StringTok{ }\KeywordTok{subset}\NormalTok{(datos, split}\OperatorTok{==}\OtherTok{FALSE}\NormalTok{)}
+\NormalTok{train <-}\StringTok{ }\NormalTok{entrenamiento}
+\NormalTok{test  <-}\StringTok{ }\NormalTok{validacion}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 4. Construir el Modelo}
+\NormalTok{regresor <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(}\DataTypeTok{formula =}\NormalTok{ Beneficio }\OperatorTok{~}\StringTok{ }\NormalTok{.,}
+               \DataTypeTok{data =}\NormalTok{ train) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 5. Hacer las prediciones para el conjunto de Validación}
+\NormalTok{y_fit  <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(regresor, }\DataTypeTok{newdata =}\NormalTok{ train)}
+\NormalTok{y_pred <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(regresor, }\DataTypeTok{newdata =}\NormalTok{ test) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 7. Calcular el error}
+\KeywordTok{library}\NormalTok{(Metrics)}
+\NormalTok{y_real <-}\StringTok{ }\NormalTok{test}\OperatorTok{$}\NormalTok{Beneficio}
+\NormalTok{RMSE <-}\StringTok{ }\KeywordTok{rmse}\NormalTok{(y_real, y_pred)}
+\KeywordTok{print}\NormalTok{(RMSE)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 12062.72
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{avg <-}\StringTok{ }\KeywordTok{mean}\NormalTok{(datos}\OperatorTok{$}\NormalTok{Beneficio)}
+\KeywordTok{cat}\NormalTok{(}\StringTok{'RMSE is '}\NormalTok{, RMSE, }\StringTok{' over an average of: '}\NormalTok{, avg)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## RMSE is  12062.72  over an average of:  112012.6
+\end{verbatim}
+
+
+\end{document}

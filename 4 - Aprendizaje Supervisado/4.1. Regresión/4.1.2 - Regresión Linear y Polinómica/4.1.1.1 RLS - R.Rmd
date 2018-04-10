@@ -3,8 +3,8 @@ title: "R Notebook"
 output: pdf_document
 ---
 
-#Regresi贸n Linear Simple (R)
-La regresi贸n linear utiliza el m茅todo de m铆nimos cuadrados para encontrar la recta que resulta en la menor suma de errores al cuadrado (RMSE: Root Mean Square Error).
+#Regresi髇 Linear Simple (R)
+La regresi髇 linear utiliza el m閠odo de m韓imos cuadrados para encontrar la recta que resulta en la menor suma de errores al cuadrado (RMSE: Root Mean Square Error).
 La palabra simple se refiere a que la variable respuesta solo depende de 1 variable independiente: Y = f(X)
 
 
@@ -12,11 +12,11 @@ Escenario del problema
 ---
 
 <img src='../Imagenes/experiencia.png' style='width:12%;height:12%;float:left;margin-right:20px'>
-Queremos encontrar la relaci贸n que existe entre los a帽os de experiencia profesional y el salario que podemos esperar tener cuando lo hayamos conseguido.  
+Queremos encontrar la relaci髇 que existe entre los a駉s de experiencia profesional y el salario que podemos esperar tener cuando lo hayamos conseguido.  
 隆Vamos a ello!
 
-```{r 1. Importar librer铆as}
-# 1. Importar librer铆as
+```{r 1. Importar librer韆s}
+# 1. Importar librer韆s
 library(caTools)
 library(ggplot2)
 ```
@@ -26,8 +26,8 @@ library(ggplot2)
 datos <- read.csv('../Datos/4.1.Salarios.csv')
 ```
 
-```{r # 3. Separar en Entrenamiento y Validaci贸n}
-# 3. Separar en Entrenamiento y Validaci贸n
+```{r # 3. Separar en Entrenamiento y Validaci髇}
+# 3. Separar en Entrenamiento y Validaci髇
 set.seed(123)
 split <- sample.split(datos$Salario, SplitRatio = 0.7)
 entrenamiento <- subset(datos, split==TRUE)
@@ -42,8 +42,8 @@ regresor <- lm(formula = Salario ~ Experiencia,
                data = train) 
 ```
 
-```{r 5. Hacer las prediciones para el conjunto de Validaci贸n}
-# 5. Hacer las prediciones para el conjunto de Validaci贸n
+```{r 5. Hacer las prediciones para el conjunto de Validaci髇}
+# 5. Hacer las prediciones para el conjunto de Validaci髇
 y_fit  <- predict(regresor, newdata = train)
 y_pred <- predict(regresor, newdata = test) 
 ```
@@ -54,16 +54,16 @@ y_pred <- predict(regresor, newdata = test)
 ggplot() +
   geom_point(aes(train$Experiencia, train$Salario), colour='red') +
   geom_line(aes(train$Experiencia, y_fit), colour='blue') +
-  ggtitle('Regresi贸n Linear Simple') +
-  xlab('A帽os de experiencia') +
+  ggtitle('Regresi髇 Linear Simple') +
+  xlab('A駉s de experiencia') +
   ylab('Salario')
 
-# 6.2. Para el conjunto de validaci贸n
+# 6.2. Para el conjunto de validaci髇
 ggplot() +
   geom_point(aes(test$Experiencia, test$Salario), colour='red') +
   geom_line(aes(test$Experiencia, y_pred), colour='blue') +
-  ggtitle('Regresi贸n Linear Simple') +
-  xlab('A帽os de experiencia') +
+  ggtitle('Regresi髇 Linear Simple') +
+  xlab('A駉s de experiencia') +
   ylab('Salario')
 ```
 
