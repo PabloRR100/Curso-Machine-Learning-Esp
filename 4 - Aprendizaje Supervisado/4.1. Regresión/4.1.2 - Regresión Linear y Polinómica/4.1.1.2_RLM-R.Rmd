@@ -1,6 +1,8 @@
 ---
 title: "Regresión Lineal Múltiple"
-output: html_document
+output: 
+  html_document: 
+    keep_md: yes
 ---
 
 #Regresión Linear Múltiple (R)

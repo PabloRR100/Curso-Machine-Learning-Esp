@@ -1,6 +1,6 @@
 ---
 title: "SVR - Support Vector Machine para Regresión"
-output: pdf_document
+output: html_document
 ---
 
 SVR (R)
