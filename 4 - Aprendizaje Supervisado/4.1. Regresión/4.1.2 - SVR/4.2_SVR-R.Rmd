@@ -1,12 +1,14 @@
 ---
 title: "SVR - Support Vector Machine para Regresión"
-output: html_document
+output: 
+  html_document:
+    self_contained: no
 ---
 
 SVR (R)
 ---
 <img src='../Imagenes/SVR.png' style='width:12%;height:12%;float:left;margin-right:20px'>
-Los SVR utilizan una función (denominada función de Núcleo o ___kernel___) para mapear los puntos del conjunto de datos disponibles a otra dimensión donde estos sean linealmente separables. 
+Los SVR utilizan una función (denominada función de Núcleo o kernel) para mapear los puntos del conjunto de datos disponibles a otra dimensión donde estos sean linealmente separables. 
 
 Si imaginamos un espacion en 2D con puntos de 2 clases distintas, la función de núcleo podría levantar a estos puntos a un espacio en 3D donde estos puntos de distintas clases podrían separarse por un plano.
 
@@ -16,6 +18,9 @@ Escenario del problema
 <img src='../Imagenes/entrevista.png' style='width:8%;height:8%;float:left;margin-right:20px'>
 Vamos a contratar un nuevo empleado. Nos ha dicho que en su anterior empresa fue Manager Regional durante 2 años y que cobraba 170.000€ al año. Queremos determinar hasta que punto nos dice la verdad para poder negociar con él el salario que queremos ofrecerle en su nuevo puesto.  
 ¡Vamos a ello!
+
+<br>
+<br>
 
 ```{r 1. Importar librerías}
 # 1. Importar librerías
@@ -31,9 +36,18 @@ datas = datos[2:3] # Eliminamos la columna del título del puesto y nos quedamos
 ```
 
 
-```{r # 3. Separar en Entrenamiento y Validación}
-# 3. Separar en Entrenamiento y Validación
+```{r # 3. Histograma de Salario}
+# 3. Histograma de Salario
+ggplot(data = datos, aes(datos$Salario)) + 
+         geom_histogram(bins=15,
+                        col='black',
+                        fill='blue',
+                        alpha=0.2) +
+         geom_vline(xintercept = mean(datos$Salario), col='purple') +
+         xlab('Salario') + 
+         ylab('Frecuencia')
 ```
+
 **Recordatorio:** no hacemos división de conjuntos porque tenemos muy pocos datos y nuestra intención es hacer una predicción lo más precisa posible.
 
 ```{r # 4. Construir el Modelo}
@@ -59,11 +73,14 @@ ggplot() +
   xlab('Años de experiencia') +
   ylab('Salario')
 ```
-
+Interesante, vemos como el SVR ha tratado el alto salario de los empleados con mayor experiencia como un **outlier**, pesando que debe tratarse de un error ya que se separa mucho de la tendencia del resto de niveles de experiencia.
+ 
 ```{r 7. Calcular el error}
 # 7. Calcular el error
 library(Metrics)
 y_real <- datos$Salario
 RMSE <- rmse(y_real, y_fit)
-print(RMSE)
+avg <- mean(datos$Salario)
+err <- RMSE * 100 / avg
+cat('El error es de ', RMSE, ' sobre un salario medio de ', avg, ' lo cual representa un error de un ', err, '%')
 ```

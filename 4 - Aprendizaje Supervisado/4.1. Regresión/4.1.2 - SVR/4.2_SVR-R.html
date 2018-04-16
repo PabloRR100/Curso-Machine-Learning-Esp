@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>SVR - Support Vector Machine para Regresión</title>
+
+<script src="4.2_SVR-R_files/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="4.2_SVR-R_files/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="4.2_SVR-R_files/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="4.2_SVR-R_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="4.2_SVR-R_files/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="4.2_SVR-R_files/navigation-1.1/tabsets.js"></script>
+<link href="4.2_SVR-R_files/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="4.2_SVR-R_files/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">SVR - Support Vector Machine para Regresión</h1>
+
+</div>
+
+
+<div id="svr-r" class="section level2">
+<h2>SVR (R)</h2>
+<p><img src='../Imagenes/SVR.png' style='width:12%;height:12%;float:left;margin-right:20px'> Los SVR utilizan una función (denominada función de Núcleo o kernel) para mapear los puntos del conjunto de datos disponibles a otra dimensión donde estos sean linealmente separables.</p>
+<p>Si imaginamos un espacion en 2D con puntos de 2 clases distintas, la función de núcleo podría levantar a estos puntos a un espacio en 3D donde estos puntos de distintas clases podrían separarse por un plano.</p>
+</div>
+<div id="escenario-del-problema" class="section level2">
+<h2>Escenario del problema</h2>
+<p><img src='../Imagenes/entrevista.png' style='width:8%;height:8%;float:left;margin-right:20px'> Vamos a contratar un nuevo empleado. Nos ha dicho que en su anterior empresa fue Manager Regional durante 2 años y que cobraba 170.000€ al año. Queremos determinar hasta que punto nos dice la verdad para poder negociar con él el salario que queremos ofrecerle en su nuevo puesto.<br />
+¡Vamos a ello!</p>
+<p><br> <br></p>
+<pre class="r"><code># 1. Importar librerías
+library(caTools)
+library(ggplot2)
+library(e1071)</code></pre>
+<pre class="r"><code># 2. Importar datos
+datos &lt;- read.csv(&#39;../Datos/4.1.Salarios2.csv&#39;)
+datas = datos[2:3] # Eliminamos la columna del título del puesto y nos quedamos con el nivel</code></pre>
+<pre class="r"><code># 3. Histograma de Salario
+ggplot(data = datos, aes(datos$Salario)) + 
+         geom_histogram(bins=15,
+                        col=&#39;black&#39;,
+                        fill=&#39;blue&#39;,
+                        alpha=0.2) +
+         geom_vline(xintercept = mean(datos$Salario), col=&#39;purple&#39;) +
+         xlab(&#39;Salario&#39;) + 
+         ylab(&#39;Frecuencia&#39;)</code></pre>
+<p><img src="4.2_SVR-R_files/figure-html/#%203.%20Histograma%20de%20Salario-1.png" width="672" /></p>
+<p><strong>Recordatorio:</strong> no hacemos división de conjuntos porque tenemos muy pocos datos y nuestra intención es hacer una predicción lo más precisa posible.</p>
+<pre class="r"><code># 4. Construir el Modelo
+regresor &lt;- e1071::svm(formula = Salario ~ Nivel,
+                       data = datos,
+                       type = &#39;eps-regression&#39;)</code></pre>
+<pre class="r"><code># 5. Hacer las prediciones para el conjunto de Validación
+y_fit &lt;- predict(regresor, newdata = datos)</code></pre>
+<p>No estamos prediciendo en este ejemplo, sino determinando los parámetros para que el modelo se <strong>ajuste</strong> lo mejor posible a los datos del conjunto de entrenamiento (que constitutye todos los datos)</p>
+<pre class="r"><code># 6. Echemos un vistazo a la pinta que tienen las predicciones
+ggplot() +
+  geom_point(aes(datos$Nivel, datos$Salario), colour=&#39;red&#39;) +
+  geom_line(aes(datos$Nivel, y_fit), colour=&#39;blue&#39;) +
+  ggtitle(&#39;SVR&#39;) +
+  xlab(&#39;Años de experiencia&#39;) +
+  ylab(&#39;Salario&#39;)</code></pre>
+<p><img src="4.2_SVR-R_files/figure-html/6.%20Echemos%20un%20vistazo%20a%20la%20pinta%20que%20tienen%20las%20predicciones-1.png" width="672" /> Interesante, vemos como el SVR ha tratado el alto salario de los empleados con mayor experiencia como un <strong>outlier</strong>, pesando que debe tratarse de un error ya que se separa mucho de la tendencia del resto de niveles de experiencia.</p>
+<pre class="r"><code># 7. Calcular el error
+library(Metrics)
+y_real &lt;- datos$Salario
+RMSE &lt;- rmse(y_real, y_fit)
+avg &lt;- mean(datos$Salario)
+err &lt;- RMSE * 100 / avg
+cat(&#39;El error es de &#39;, RMSE, &#39; sobre un salario medio de &#39;, avg, &#39; lo cual representa un error de un &#39;, err, &#39;%&#39;)</code></pre>
+<pre><code>## El error es de  142425.4  sobre un salario medio de  249500  lo cual representa un error de un  57.08433 %</code></pre>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

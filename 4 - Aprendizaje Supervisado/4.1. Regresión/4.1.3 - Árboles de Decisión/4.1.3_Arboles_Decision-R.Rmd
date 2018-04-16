@@ -1,6 +1,6 @@
 ---
 title: "Árboles de Decisión (R)"
-output: pdf_document
+output: html_document
 ---
 
 <img src='../Imagenes/arbol.png' style='width:15%;height:15%;float:left;margin-right:20px'>
@@ -105,8 +105,10 @@ Esto es lo que realmente está haciendo el árbol de decisión
 # 7. Calcular el error
 library(Metrics)
 y_real <- datos$Salario
-RMSE <- rmse(y_real, y_fit2)
-print(RMSE)
+RMSE <- Metrics::rmse(y_real, y_fit2)
+avg <- mean(datos$Salario)
+err <- RMSE * 100 / avg
+cat('El error es de ', RMSE, ' sobre un promedio de ', avg, ' lo cual representa un: ', err, '%')
 ```
 
 
