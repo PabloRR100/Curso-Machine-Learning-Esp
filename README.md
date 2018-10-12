@@ -5,7 +5,7 @@ Curso de Machine Learning en Español donde se abordarán los algoritmos de ML m
 Índice de contenidos
 ---
 
-1 - [Introdución](https://github.com/PabloRR100/Curso-Machine-Learning-Esp-/blob/master/1%20-%20Introducción.ipynb) - Qué es Machine Learning  
+1 - [Introdución](https://github.com/PabloRR100/Curso-Machine-Learning-Esp/blob/master/1%20-%20Introducci%C3%B3n%20a%20ML%20y%20AI.ipynb) - Qué es Machine Learning  
 
 2 - Algoritmos de Machine Learning  
 
